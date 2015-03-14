@@ -1,0 +1,25 @@
+FROM fedora:latest
+MAINTAINER "Arun Neelicattu" <arun.neelicattu@gmail.com>
+
+RUN yum -y install \
+    postgresql postgresql-server postgresql-contrib \
+    pwgen
+Run yum -y clean all
+
+ENV PGHOME=/var/lib/pgsql
+ENV PGDATA=${PGHOME}/data
+ENV PGPORT=5432
+ENV PGSHARE=/usr/share/pgsql
+ENV POST_INIT=/usr/share/pgsql-post-init
+
+ADD assets/supervisord.conf /etc/supervisord.conf
+ADD assets/pgsql-server-start /bin/pgsql-server-start
+ADD assets/pgsql-post-init/ ${POST_INIT}
+
+USER postgres
+WORKDIR ${PGHOME}
+
+VOLUME ${PGHOME}
+EXPOSE ${PGPORT}
+
+CMD ["/usr/bin/supervisord", "-n"]

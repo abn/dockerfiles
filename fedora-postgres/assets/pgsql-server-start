@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+export PGHOME=${PGHOME-/var/lib/pgsql}
+export PGDATA=${PGDATA-${PGHOME}/data}
+export PGPORT=${PGPORT-5432}
+export POST_INIT=${POST_INIT-/usr/share/pgsql-post-init}
+
+if [ ! -d ${PGDATA} ]; then
+    /bin/initdb \
+        || { echo "Database initialization failed!" && exit 1; } 
+    FIRST_BOOT=1
+fi
+
+# if first boot startup server and run post init scripts
+if [ ! -z ${FIRST_BOOT} ] && [ -d ${POST_INIT} ]; then
+    /bin/pg_ctl -D ${PGDATA} start > /dev/null 2>&1
+    sleep 2
+    find ${POST_INIT} -type f -name "*.sh" \
+        -exec echo "Executing: {}" \; \
+        -exec {} \;
+    /bin/pg_ctl -D ${PGDATA} stop > /dev/null 2>&1
+fi
+
+# we need this to play well with supervisord
+/usr/bin/postgres -D ${PGDATA} > /dev/null 2>&1

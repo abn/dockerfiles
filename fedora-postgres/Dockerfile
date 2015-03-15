@@ -19,7 +19,7 @@ ADD assets/pgsql-post-init/ ${POST_INIT}
 USER postgres
 WORKDIR ${PGHOME}
 
-VOLUME ${PGHOME}
+VOLUME ["${PGHOME}", "${POST_INIT}"]
 EXPOSE ${PGPORT}
 
 CMD ["/usr/bin/supervisord", "-n"]

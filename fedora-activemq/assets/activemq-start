@@ -19,4 +19,4 @@ CONF_DIR=${ACTIVEMQ_RUN}/conf
         done' -- {} \;
 
 # start activemq in the foreground
-${ACTIVEMQ_HOME}/bin/activemq console
+ACTIVEMQ_OPTS=${ACTIVEMQ_OPTS} ${ACTIVEMQ_HOME}/bin/activemq console $@

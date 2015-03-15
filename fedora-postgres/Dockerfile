@@ -2,9 +2,9 @@ FROM fedora:latest
 MAINTAINER "Arun Neelicattu" <arun.neelicattu@gmail.com>
 
 RUN yum -y install \
-    postgresql postgresql-server postgresql-contrib \
-    pwgen
-Run yum -y clean all
+    deltarpm pwgen \
+    postgresql postgresql-server postgresql-contrib
+RUN yum -y update && yum -y clean all
 
 ENV PGHOME=/var/lib/pgsql
 ENV PGDATA=${PGHOME}/data

@@ -2,6 +2,10 @@
 
 A fedora based postgres container that allows for scripts to be executed on first boot.
 
+```
+docker pull alectolytic/postgres
+```
+
 ## Build and Run
 
 ### Build
@@ -16,7 +20,7 @@ PGSQL_HOST_PORT=5432
 
 docker run \
     -p 5432:${PGSQL_HOST_PORT} \
-    -v ${PGSQL_HOST_HOME}:/var/lib/pgsql
+    -v ${PGSQL_HOST_HOME}:/var/lib/pgsql \
     fedora/postgres
 ```
 

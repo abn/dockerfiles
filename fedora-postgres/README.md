@@ -44,7 +44,8 @@ The PostgreSQL home directory. This includes the data directory.
 #### /usr/share/pgsql-post-init
 This volume contains scripts (name matching `*.sh`) that need to executed after `initdb` run completes. These scripts are only executed once. The postgres service will be restart once these are completed.
 
-A sample post-init script could be:
+A sample post-init script could be the following.
+
 ```
 #!/usr/bin/env bash
 # create a user, a database and enable access to it over the network.

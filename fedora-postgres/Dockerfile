@@ -2,7 +2,7 @@ FROM fedora:latest
 MAINTAINER "Arun Neelicattu" <arun.neelicattu@gmail.com>
 
 RUN yum -y install \
-    deltarpm pwgen \
+    deltarpm pwgen supervisor \
     postgresql postgresql-server postgresql-contrib
 RUN yum -y update && yum -y clean all
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+find ${ZOO_CONF} -type f \
+    -exec bash -c "ln -sf {} /etc/zookeeper/\$(basename {})" \;
+
+/usr/bin/zkServer.sh start-foreground

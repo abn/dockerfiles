@@ -19,6 +19,9 @@ ADD assets/pgsql-post-init/ ${POST_INIT}
 USER postgres
 WORKDIR ${PGHOME}
 
+# ensure the home directory is clean to trigger initdb on first boot
+RUN rm -rf ${PGHOME}/*
+
 VOLUME ["${PGHOME}", "${POST_INIT}"]
 EXPOSE ${PGPORT}
 

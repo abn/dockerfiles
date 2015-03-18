@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+HOOKS_DIR=${KAFKA_RUN}/hooks
+CONF_DIR=${KAFKA_RUN}/conf
+
+# run all hooks
+[[ -d ${HOOKS_DIR} ]] && find ${HOOKS_DIR} \
+    -type f -name "*.sh" \
+    -exec echo "Executing {}" \; \
+    -exec {} \;
+
+# load any runtime configurations
+[[ -d ${CONF_DIR} ]] && find ${CONF_DIR} \
+    -type f \
+    -exec bash -c \
+        'for file do
+            DEST=${file/"${KAFKA_RUN}"/"${KAFKA_HOME}"};
+            [[ -e ${DEST} ]] && ln -sf $file ${DEST} && echo "Replaced ${DEST}";
+        done' -- {} \;
+
+# start activemq in the foreground
+KAFKA_OPTS=${KAFKA_OPTS} ${KAFKA_HOME}/bin/kafka-server-start.sh ${KAFKA_HOME}/config/server.properties $@

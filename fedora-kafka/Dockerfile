@@ -15,7 +15,7 @@ ENV KAFKA_URLPATH=kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
 ENV KAFKA_SOURCE=${APACHE_MIRROR}/${KAFKA_URLPATH}
 ENV KAFKA_HOME=/opt/apache-kafka/
 ENV KAFKA_COF=${KAFKA_HOME}/conf
-ENV KAFLA_LOG=${KAFKA_HOME}/log
+ENV KAFLA_LOG=${KAFKA_HOME}/logs
 ENV KAFKA_USER=kafka
 ENV KAFKA_RUN=/var/run/kafka
 ENV KAFKA_OPTS=""
@@ -42,6 +42,10 @@ RUN cd /tmp \
 RUN mkdir -p ${KAFKA_RUN} \
     && chown -R ${KAFKA_USER}:${KAFKA_USER} ${KAFKA_RUN}
 
+# prepare log directory
+RUN mkdir -p ${KAFLA_LOG} \
+    && chown -R ${KAFKA_USER}:${KAFKA_USER} ${KAFKA_LOG}
+
 # add assets
 ADD assets/supervisord.conf /etc/supervisord.conf
 ADD assets/kafka-start /bin/kafka-start
@@ -52,7 +56,7 @@ USER ${KAFKA_USER}
 WORKDIR ${KAFKA_HOME}
 
 VOLUME ["${KAFKA_RUN}/conf", "${KAFKA_RUN}/hooks", "${KAFKA_CONF}", \
-    "${KAFKA_DATA}"]
+    "${KAFKA_DATA}", "${KAFKA_LOG}"]
 
 EXPOSE ${BROKER_PORT}
 

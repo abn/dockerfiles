@@ -30,7 +30,7 @@ docker run -d \
 # server.properties (change default from localhost if required)
 docker run \
     -p 9092:9092 \
-    -v ${HOST_LOG_DIR}:/opt/apache-kafka/log \
+    -v ${HOST_LOG_DIR}:/opt/apache-kafka/logs \
     -v ${HOST_CONF_DIR}:/var/run/kafka/conf \
     --link zoo:localhost
     fedora/kafka

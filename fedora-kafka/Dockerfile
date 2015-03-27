@@ -15,7 +15,7 @@ ENV KAFKA_URLPATH=kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
 ENV KAFKA_SOURCE=${APACHE_MIRROR}/${KAFKA_URLPATH}
 ENV KAFKA_HOME=/opt/apache-kafka/
 ENV KAFKA_COF=${KAFKA_HOME}/conf
-ENV KAFLA_LOG=${KAFKA_HOME}/logs
+ENV KAFKA_LOG=${KAFKA_HOME}/logs
 ENV KAFKA_USER=kafka
 ENV KAFKA_RUN=/var/run/kafka
 ENV KAFKA_OPTS=""
@@ -43,7 +43,7 @@ RUN mkdir -p ${KAFKA_RUN} \
     && chown -R ${KAFKA_USER}:${KAFKA_USER} ${KAFKA_RUN}
 
 # prepare log directory
-RUN mkdir -p ${KAFLA_LOG} \
+RUN mkdir -p ${KAFKA_LOG} \
     && chown -R ${KAFKA_USER}:${KAFKA_USER} ${KAFKA_LOG}
 
 # add assets

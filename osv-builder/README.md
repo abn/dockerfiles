@@ -70,4 +70,6 @@ If everything goes well, the images should be available in `${HOST_BUILD_DIR}`.
 | Volume  | Description |
 | :------------ | :------------ |
 | /osv | This directory contains the OSv repository. |
+| /osv/apps | The OSv apps directory. Mount this if you are testing local applications. |
 | /osv/build | The OSv build directory containing release and standalone directories. |
+| /osv/images | The OSv image build configurations. |

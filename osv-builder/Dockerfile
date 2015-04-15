@@ -41,6 +41,6 @@ WORKDIR ${OSV_DIR}
 RUN find ${OSV_DIR}/patches -maxdepth 1 -type f -name "*.patch" \
     -exec bash -c "patch -p1 < {}" \;
 
-VOLUME ["/osv", "/osv/build/"]
+VOLUME ["/osv", "/osv/build/", "/osv/apps/", "/osv/images/"]
 
 CMD ["/usr/bin/bash"]

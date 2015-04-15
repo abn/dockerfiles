@@ -10,7 +10,7 @@ ENV SCRIPT_SRC=https://raw.githubusercontent.com/abn/dockerfiles/master/scripts/
 
 RUN curl --silent ${SCRIPT_SRC}/docker-install-systemd.sh \
     | bash
-RUN TCP_PORT=16509; \
+RUN export TCP_PORT=16509; \
     curl --silent ${SCRIPT_SRC}/docker-install-libvirtd.sh \
     | bash
 

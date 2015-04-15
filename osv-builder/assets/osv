@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+run() {
+    # get the command and shift args
+    CMD=$1
+    shift
+
+    case ${CMD} in
+        'build')
+            ./scripts/build "$@"
+            ;;
+        'run')
+            ./scripts/run.py "$@"
+            ;;
+        'appliance')
+            ./scripts/build-vm-img "$@"
+            ;;
+        'clean')
+            make clean
+            ;;
+        *)
+            ./scripts/${CMD} "$@"
+            break
+            ;;
+    esac
+}
+
+main() {
+    cd ${OSV_DIR-/osv}
+    run "$@"
+}
+
+main "$@"

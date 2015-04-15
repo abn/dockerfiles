@@ -1,0 +1,22 @@
+diff --git a/scripts/build-vm-img b/scripts/build-vm-img
+index bf5d38d..33205b0 100755
+--- a/scripts/build-vm-img
++++ b/scripts/build-vm-img
+@@ -58,11 +58,11 @@ format=zip
+ mv $img $out/$(basename $name)-$version.vmw.zip
+ 
+ ### Image for VMware ESXi
+-rm -f build/release/osv-esx.ova
+-ovftool build/release/osv.vmx build/release/osv-esx.ova >/dev/null
+-img=build/release/osv-esx.ova
+-hypervisor=esx
+-format=ova
+-mv $img $out/$(basename $name)-$version.esx.ova
++#rm -f build/release/osv-esx.ova
++#ovftool build/release/osv.vmx build/release/osv-esx.ova >/dev/null
++#img=build/release/osv-esx.ova
++#hypervisor=esx
++#format=ova
++#mv $img $out/$(basename $name)-$version.esx.ova
+ 
+ echo "==> '$name' image built to '$out'."

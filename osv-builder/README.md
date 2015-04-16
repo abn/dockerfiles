@@ -18,7 +18,12 @@ docker run -it \
   osv-builder
 ```
 
-This will place you into the OSv source clone. You can work with it as you normally would.
+This will place you into the OSv source clone. You can work with it as you normally would when working on OSv source, apps, build scripts etc. For example, you can run the following commands, once the above `docker run` commands has been executed, to build and run a tomcat appliance.
+
+```sh
+./scripts/build image=tomcat,httpserver
+./scripts/run -V
+```
 
 ## The `osv` Command
 
@@ -51,7 +56,7 @@ docker run \
   ./scripts/build image=opendaylight
 ```
 
-## Building an appliance images
+## Building appliance images
 
 If using the pre-built version from docker hub, use `alectolytic/osv-builder` instead of `osv-builder`.
 
@@ -63,7 +68,11 @@ docker run \
   osv appliance zookeeper apache-zookeeper,cloud-init "Apache Zookeeper on OSv"
 ```
 
-If everything goes well, the images should be available in `${HOST_BUILD_DIR}`.
+If everything goes well, the images should be available in `${HOST_BUILD_DIR}`. This will contain appliance images for [QEMU/KVM](http://wiki.qemu.org/KVM), [Oracle VirtualBox](https://www.virtualbox.org/), [Google Compute Engine](https://cloud.google.com/compute/) and [VMWare](https://www.vmware.com/) Virtual Machine Disk.
+
+Note that we explicitly disable the build of [VMware ESXi](http://www.vmware.com/products/esxi-and-esx/overview) images since `ovftool` is not available.
+
+For more information regarding OSv Appliances and pre-built ones, refer [here](http://osv.io/virtual-appliances/).
 
 ## Volume Mapping
 

@@ -1,23 +1,17 @@
-FROM fedora:latest
+FROM alectolytic/systemd
 MAINTAINER "Arun Neelicattu" <arun.neelicattu@gmail.com>
 
 # Derrived from http://www.projectatomic.io/blog/2014/10/libvirtd_in_containers/
-
 RUN yum -y update
 
-# configure systemd and libvirtd
+# configure libvirtd
+ENV TCP_PORT=16509
 ENV SCRIPT_SRC=https://raw.githubusercontent.com/abn/dockerfiles/master/scripts/
-
-RUN curl --silent ${SCRIPT_SRC}/docker-install-systemd.sh \
-    | bash
-RUN export TCP_PORT=16509; \
-    curl --silent ${SCRIPT_SRC}/docker-install-libvirtd.sh \
+RUN curl --silent ${SCRIPT_SRC}/docker-install-libvirtd.sh \
     | bash
 
-EXPOSE 16509
+EXPOSE ${TCP_PORT}
 
 RUN yum -y clean all
 
-VOLUME ["/sys/fs/cgroup"]
-
-CMD ["/usr/sbin/init"]
+VOLUME ["/var/lib/libvirt"]

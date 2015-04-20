@@ -15,11 +15,11 @@ docker build -t libvirtd
 ```sh
 # use alectolytic/libvirtd if pulling from dockerhub
 # use '--net host --expose 16509' if client is not linked
-docker run --privileged --detach=true --env='container=docker' \
-    --volume /proc/modules:/proc/modules \
-    --volume /var/lib/libvirt/:/var/lib/libvirt/ \
-    --volume /sys/fs/cgroup:/sys/fs/cgroup:rw \
-    --name libvirtd libvirtd
+docker run \
+  --privileged \
+  --detach=true \
+  --name libvirtd \
+  libvirtd
 ```
 
 This command will start a detached instance of the container with the name `libvirtd`.
@@ -35,7 +35,9 @@ The following volumes can be mounted from the host.
 
 | Volume  | Description |
 | :------------ | :------------ |
-| /sys/fs/cgroup | [Contron Group Resource Management](https://libvirt.org/cgroups.html) |
+| /sys/fs/cgroup | [Control Group Resource Management](https://libvirt.org/cgroups.html) |
+| /var/lib/libvirt | Host libvirt directory. |
+| /var/lib/libvirt/images | Default storage pool. |
 
 ## Ports
 | Port  | Description |

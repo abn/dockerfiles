@@ -10,6 +10,10 @@ ENV OSV_DIR=/osv
 ENV VBOX_REPO=http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 RUN curl -o /etc/yum.repos.d/$(basename ${VBOX_REPO}) ${VBOX_REPO}
 
+# install CloudRouter repo
+RUN yum -y install \
+    https://repo.cloudrouter.org/1/x86_64/cloudrouter-repo-latest.noarch.rpm
+
 # do an update for sanity
 RUN yum -y update
 
@@ -20,6 +24,11 @@ RUN yum -y install \
 # install VirtualBox
 RUN yum -y install \
     VirtualBox-4.3
+
+# install Capstan
+ENV CAPSTAN_ROOT=/capstan-repository
+RUN yum -y install \
+    capstan
 
 # fetch and setup OSV_REPO branch for OSV_VERSION
 RUN git clone -b v${OSV_VERSION} --single-branch ${OSV_REPO} ${OSV_DIR}
@@ -41,6 +50,6 @@ WORKDIR ${OSV_DIR}
 RUN find ${OSV_DIR}/patches -maxdepth 1 -type f -name "*.patch" \
     -exec bash -c "patch -p1 < {}" \;
 
-VOLUME ["/osv", "/osv/build/", "/osv/apps/", "/osv/images/"]
+VOLUME ["/osv", "/osv/build/", "/osv/apps/", "/osv/images/", "/capstan-repository"]
 
 CMD ["/usr/bin/bash"]

@@ -56,6 +56,46 @@ docker run \
   ./scripts/build image=opendaylight
 ```
 
+## Running Capstan
+
+This container also comes with [Capstan](http://osv.io/capstan/) pre-installed. However, to use Capstan, you'll have to run the container with the `--privileged` option set as it requires the KVM kernel module.
+
+### Examples
+
+List the images that we already have on the host by mounting the `~/.capstan/repository` directory. This allows reuse of images across runs of the container.
+
+```sh
+docker run \
+  --privileged \
+  --volume ${HOME}/.capstan/repository:/capstan-repository \
+  alectolytic/osv-builder \
+  capstan images
+```
+
+Capstan build and run `iperf` app:
+
+```
+[abn@zoidberg ~]$ sudo docker run -it \
+  --privileged \
+  alectolytic/osv-builder
+bash-4.3# cd apps/iperf
+bash-4.3# capstan build
+Building iperf...
+Downloading cloudius/osv-base/index.yaml...
+154 B / 154 B [=================================================================================================================] 100.00 % 0
+Downloading cloudius/osv-base/osv-base.qemu.gz...
+20.09 MB / 20.09 MB [=======================================================================================================] 100.00 % 1m27s
+Uploading files...
+1 / 1 [=========================================================================================================================] 100.00 % 0bash-4.3# capstan run
+Created instance: iperf
+OSv v0.19
+eth0: 192.168.122.15
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 64.0 KByte (default)
+------------------------------------------------------------
+```
+
 ## Building appliance images
 
 If using the pre-built version from docker hub, use `alectolytic/osv-builder` instead of `osv-builder`.
@@ -82,3 +122,4 @@ For more information regarding OSv Appliances and pre-built ones, refer [here](h
 | /osv/apps | The OSv apps directory. Mount this if you are testing local applications. |
 | /osv/build | The OSv build directory containing release and standalone directories. |
 | /osv/images | The OSv image build configurations. |
+| /capstan-repository | Capstan repository store. |

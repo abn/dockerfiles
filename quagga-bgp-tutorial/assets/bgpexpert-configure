@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo Router: $1
+echo
+echo Downloading /etc/quagga/zebra.conf...
+/bin/curl -o /etc/quagga/zebra.conf -4 "http://www.bgpexpert.com/course.php?rtra=$1&int=enp0s3&config=zebra"
+echo Downloading /etc/quagga/bgpd.conf...
+/bin/curl -o /etc/quagga/bgpd.conf -4 "http://www.bgpexpert.com/course.php?rtra=$1&int=enp0s3&config=bgpd"
+sleep 1
+chown quagga.quaggavt /etc/quagga/*

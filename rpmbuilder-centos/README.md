@@ -24,7 +24,7 @@ TARGET_DIR=$(pwd)/target
 mkdir -p ${TARGET_DIR}
 
 # make SELinux happy
-chcon -Rt svirt_sandbox_file_t ${TARGET_DIR}
+chcon -Rt svirt_sandbox_file_t ${TARGET_DIR} ${SOURCE_DIR}
 
 # build rpm
 docker run \

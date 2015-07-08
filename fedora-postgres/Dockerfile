@@ -1,10 +1,10 @@
 FROM fedora:latest
 MAINTAINER "Arun Neelicattu" <arun.neelicattu@gmail.com>
 
-RUN yum -y install \
+RUN dnf -y install \
     deltarpm pwgen supervisor \
     postgresql postgresql-server postgresql-contrib
-RUN yum -y update && yum -y clean all
+RUN dnf -y update && yum -y clean all
 
 ENV PGHOME=/var/lib/pgsql
 ENV PGDATA=${PGHOME}/data

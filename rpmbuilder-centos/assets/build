@@ -15,7 +15,7 @@ cp -R ${SOURCES}/* ${WORKSPACE}/.
 chown root:root ${WORKSPACE}/*
 
 # copy any non-spec files to source directory
-find ${WORKSPACE} ! -name "*.spec" \
+find ${WORKSPACE} -mindepth 1 ! -name "*.spec" \
     -exec cp {} ${RPM_BUILD_SOURCES}/. \;
 
 # install deps and fetch any external sources
